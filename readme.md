@@ -2,7 +2,7 @@
 
 Byeonghyeon Lee, Youbin Kim, Yongjae Jo, Hyunsu Kim, Hyemi Park, Yangkyu Kim, Debabrata Mandal, Praneeth Chakravarthula, Inki Kim, and Eunbyung Park
 
-[Project Page](https://benhenryl.github.io/Metalens_Transformer/) &nbsp; [Paper](https://arxiv.org/abs/2412.04591) 
+[Project Page](https://benhenryl.github.io/Metalens-Transformer/) &nbsp; [Paper](https://arxiv.org/abs/2412.04591) 
 
 
 We ran the experiments in the following environment:
