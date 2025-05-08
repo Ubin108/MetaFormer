@@ -1,0 +1,75 @@
+# general settings
+name: sample_test
+# name: batch8
+model_type: ImageCleanModel
+scale: 1
+num_gpu: 4  # set num_gpu: 0 for cpu mode
+manual_seed: 100
+
+# dataset and data loader settings
+datasets:
+  val:
+    name: ValSet
+    type: Dataset_PaddedImage # Use Dataset_PaddedImage_npy if load convolved images (lr images). Also please set dataroot_lq as well.
+    dataroot_gt: PATH_TO_TEST_SET # TODO
+    io_backend:
+      type: disk
+
+    sensor_size: 1215
+    psf_size: 135
+
+# network structures
+network_g:
+  type: ACFormer
+  inp_channels: 39
+  out_channels: 3
+  dim: 48
+  num_blocks: [2,4,4,4]
+  num_refinement_blocks: 4
+  channel_heads: [1,2,4,8]
+  spatial_heads: [1,2,4,8]
+  overlap_ratio: [0.5,0.5,0.5,0.5]
+  window_size: 8
+  spatial_dim_head: 16
+  ffn_expansion_factor: 2.66
+  bias: False
+  LayerNorm_type: WithBias
+  ca_dim: 32
+  ca_heads: 2
+  M: 13
+  window_size_ca: 8
+  query_ksize: [15,11,7,3,3]
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+# training settings
+train:
+  ks:
+    start: -2
+    end: -5
+    num: 13
+
+# validation settings
+val:
+  window_size: 8
+  save_img: true
+  rgb2bgr: true
+  use_image: true
+  max_minibatch: 8
+  padding: 64
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: true
+
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29502
